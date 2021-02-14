@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace catalogs.api.Entities
 {
     public class Product
     {
+        [BsonId]
         public string Id { get; set; }
         [MinLength(2)]
         public string Name { get; set; }
