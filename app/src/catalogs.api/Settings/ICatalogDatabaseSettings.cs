@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace catalogs.api.Settings
+﻿namespace catalogs.api.Settings
 {
     public interface ICatalogDatabaseSettings
     {
