@@ -20,9 +20,12 @@ namespace catalogs.api.Repositories
             await _catalogContext.Products.InsertOneAsync(product);
         }
 
-        public Task<bool> Delete(Product product)
+        public async Task<bool> Delete(string id)
         {
-            throw new System.NotImplementedException();
+            var operationResult = await _catalogContext
+                                    .Products
+                                    .DeleteOneAsync(filter: collectionProduct => collectionProduct.Id == id);
+            return operationResult.IsAcknowledged && operationResult.DeletedCount > 0;
         }
 
         public async Task<Product> GetProduct(string id)
