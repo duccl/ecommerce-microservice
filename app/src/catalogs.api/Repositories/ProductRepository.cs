@@ -51,9 +51,13 @@ namespace catalogs.api.Repositories
             return await _catalogContext.Products.Find(product => true).ToListAsync();
         }
 
-        public Task<bool> Update(Product product)
+        public async Task<bool> Update(Product product)
         {
-            throw new System.NotImplementedException();
+            var operationResult = await _catalogContext
+                                    .Products
+                                    .ReplaceOneAsync(filter: collectionProduct => collectionProduct.Id == product.Id, 
+                                                     replacement: product);
+            return operationResult.IsAcknowledged && operationResult.ModifiedCount > 0;
         }
     }
 }
