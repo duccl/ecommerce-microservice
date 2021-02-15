@@ -3,7 +3,7 @@ using catalogs.api.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using catalogs.api.Data.Interfaces;
-
+using MongoDB.Driver;
 namespace catalogs.api.Repositories
 {
     public class ProductRepository : IProductRepository
@@ -40,9 +40,9 @@ namespace catalogs.api.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<Product>> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            throw new System.NotImplementedException();
+            return await _catalogContext.Products.Find(product => true).ToListAsync();
         }
 
         public Task<bool> Update(Product product)
