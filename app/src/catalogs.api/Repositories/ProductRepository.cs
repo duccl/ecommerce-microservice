@@ -25,14 +25,17 @@ namespace catalogs.api.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task<Product> GetProduct(string id)
+        public async Task<Product> GetProduct(string id)
         {
-            throw new System.NotImplementedException();
+            return await _catalogContext.Products.Find(prodcut => prodcut.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<IEnumerable<Product>> GetProductByCategory(string category)
+        public async Task<IEnumerable<Product>> GetProductByCategory(string category)
         {
-            throw new System.NotImplementedException();
+            return await _catalogContext
+                            .Products
+                            .Find(product => product.Category.ToLower() == category.ToLower())
+                            .ToListAsync();
         }
 
         public Task<IEnumerable<Product>> GetProductByName(string name)
