@@ -15,9 +15,9 @@ namespace catalogs.api.Repositories
             _catalogContext = catalogContext;
         }
 
-        public Task Create(Product product)
+        public async Task Create(Product product)
         {
-            throw new System.NotImplementedException();
+            await _catalogContext.Products.InsertOneAsync(product);
         }
 
         public Task<bool> Delete(Product product)
