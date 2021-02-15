@@ -1,17 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using catalogs.api.Settings;
+using catalogs.api.Data;
+using catalogs.api.Data.Interfaces;
 
 namespace catalogs.api
 {
@@ -33,16 +29,18 @@ namespace catalogs.api
             });
 
             // Injetando a classe Catalog
-            services.Configure<Settings.CatalogDatabaseSettings>(
-                Configuration.GetSection(nameof(Settings.CatalogDatabaseSettings))
+            services.Configure<CatalogDatabaseSettings>(
+                Configuration.GetSection(nameof(CatalogDatabaseSettings))
             );
 
             // Cadastrando nossa interface
             // Basicamente ele entende que toda classe que herdar a interface, deverá executar o seguinte comando
             // Como é um singleton, apenas a única instância executará o código
-            services.AddSingleton<Settings.ICatalogDatabaseSettings>(
-                serviceProvider => serviceProvider.GetRequiredService<IOptions<Settings.CatalogDatabaseSettings>>().Value
+            services.AddSingleton<ICatalogDatabaseSettings>(
+                serviceProvider => serviceProvider.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value
             );
+
+            services.AddTransient<ICatalogContext,CatalogContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
