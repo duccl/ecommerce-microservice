@@ -38,9 +38,12 @@ namespace catalogs.api.Repositories
                             .ToListAsync();
         }
 
-        public Task<IEnumerable<Product>> GetProductByName(string name)
+        public async Task<IEnumerable<Product>> GetProductByName(string name)
         {
-            throw new System.NotImplementedException();
+            return await _catalogContext
+                            .Products
+                            .Find(product => product.Name.ToLower() == name.ToLower())
+                            .ToListAsync();
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
