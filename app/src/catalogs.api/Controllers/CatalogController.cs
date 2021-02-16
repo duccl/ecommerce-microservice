@@ -38,5 +38,12 @@ namespace catalogs.api
             var update_result = await _repository.Update(product);
             return Ok(update_result);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteProduct(string id)
+        {
+            var delete_result = await _repository.Delete(id);
+            return Ok(delete_result);
+        }
     }
 }
