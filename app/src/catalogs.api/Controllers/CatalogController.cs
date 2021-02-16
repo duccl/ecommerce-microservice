@@ -45,5 +45,29 @@ namespace catalogs.api
             var delete_result = await _repository.Delete(id);
             return Ok(delete_result);
         }
+
+        [HttpGet]
+        [Route("GetProductByName")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByName(string name)
+        {
+            var products = await _repository.GetProductByName(name);
+            return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("GetProductByCategory")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
+        {
+            var products = await _repository.GetProductByCategory(category);
+            return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<Product>> GetProduct(string id)
+        {
+            var product = await _repository.GetProduct(id);
+            return Ok(product);
+        }        
     }
 }
