@@ -25,5 +25,11 @@ namespace catalogs.api
             var products = await _repository.GetProducts();
             return Ok(products);
         }
+
+        [HttpPost]
+        public async Task CreateProduct(Product product)
+        {
+            await _repository.Create(product);
+        }
     }
 }
