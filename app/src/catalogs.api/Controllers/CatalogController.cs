@@ -31,5 +31,12 @@ namespace catalogs.api
         {
             await _repository.Create(product);
         }
+
+        [HttpPut]
+        public async Task<ActionResult<bool>> UpdateProduct(Product product)
+        {
+            var update_result = await _repository.Update(product);
+            return Ok(update_result);
+        }
     }
 }
