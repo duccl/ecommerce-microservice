@@ -1,6 +1,8 @@
 ﻿using catalogs.api.Entities;
 using catalogs.api.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using catalogs.api.Data;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,10 +14,12 @@ namespace catalogs.api
     public class CatalogController : ControllerBase
     { 
         private readonly IProductRepository _repository;
+        private readonly ILogger<CatalogContext> _logger;
 
-        public CatalogController(IProductRepository repository)
+        public CatalogController(IProductRepository repository, ILogger<CatalogContext> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -48,6 +52,7 @@ namespace catalogs.api
 
         [HttpGet]
         [Route("GetProductByName")]
+        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByName(string name)
         {
             var products = await _repository.GetProductByName(name);
@@ -56,6 +61,7 @@ namespace catalogs.api
 
         [HttpGet]
         [Route("GetProductByCategory")]
+        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
         {
             var products = await _repository.GetProductByCategory(category);
@@ -64,9 +70,16 @@ namespace catalogs.api
 
         [HttpGet]
         [Route("{id}")]
+        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<Product>> GetProduct(string id)
         {
             var product = await _repository.GetProduct(id);
+            if (product == null) 
+            {
+                _logger.LogWarning($"Product with id {id} not found");
+                return NotFound();
+            }
             return Ok(product);
         }        
     }
