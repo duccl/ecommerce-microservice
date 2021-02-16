@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using catalogs.api.Settings;
 using catalogs.api.Data;
 using catalogs.api.Data.Interfaces;
+using catalogs.api.Repositories.Interfaces;
+using catalogs.api.Repositories;
 
 namespace catalogs.api
 {
@@ -41,6 +43,7 @@ namespace catalogs.api
             );
 
             services.AddTransient<ICatalogContext,CatalogContext>();
+            services.AddTransient<IProductRepository, ProductRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
