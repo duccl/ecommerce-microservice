@@ -12,7 +12,7 @@ namespace catalogs.api
     [Route("api/v1/[controller]")]
     [ApiController]
     public class CatalogController : ControllerBase
-    { 
+    {
         private readonly IProductRepository _repository;
         private readonly ILogger<CatalogContext> _logger;
 
@@ -23,7 +23,7 @@ namespace catalogs.api
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Product>),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
         {
             var products = await _repository.GetProducts();
@@ -31,9 +31,13 @@ namespace catalogs.api
         }
 
         [HttpPost]
-        public async Task CreateProduct(Product product)
+        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> CreateProduct(Product product)
         {
             await _repository.Create(product);
+            if(product.Id == null) return BadRequest();
+            return CreatedAtRoute("GetProduct",new { id = product.Id }, product);
         }
 
         [HttpPut]
@@ -68,8 +72,7 @@ namespace catalogs.api
             return Ok(products);
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{id}",Name = "GetProduct")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<Product>> GetProduct(string id)
