@@ -31,7 +31,7 @@ namespace catalogs.api
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateProduct(Product product)
         {
