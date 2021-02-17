@@ -41,6 +41,7 @@ namespace catalogs.api
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<bool>> UpdateProduct(Product product)
         {
             var update_result = await _repository.Update(product);
@@ -48,6 +49,7 @@ namespace catalogs.api
         }
 
         [HttpDelete]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<bool>> DeleteProduct(string id)
         {
             var delete_result = await _repository.Delete(id);
