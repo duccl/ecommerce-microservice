@@ -2,9 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>0a1079dd-9921-4a46-b1e0-4aab37acc85c</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="MongoDB.Bson" Version="2.11.6" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
