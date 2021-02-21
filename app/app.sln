@@ -4,10 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{632DE6B8-FA05-43D1-BACF-13A505DABDBE}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalog", "catalog", "{14A51B32-A415-4A6B-A071-514005269B67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "catalogs.api", "src\catalogs.api\catalogs.api.csproj", "{88B1F38F-A591-4C8B-9339-9E9D03079C75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "catalogs.api", "src\catalogs.api\catalogs.api.csproj", "{88B1F38F-A591-4C8B-9339-9E9D03079C75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

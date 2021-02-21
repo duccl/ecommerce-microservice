@@ -1,0 +1,17 @@
+version: "3.0"
+services:
+  catalogdb:
+    image: mongo
+    restart: always
+    expose:
+      - 27017
+  catalog:
+    build: ./src/catalogs.api
+    depends_on:
+      - catalogdb
+    environment:
+      - CONNECTIONSTRING=mongodb://catalogdb:27017
+      - DATABASENAME=catalogdb
+      - COLLECTIONNAME=products
+    ports:
+      - "8080:80" 
