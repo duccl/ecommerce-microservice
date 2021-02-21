@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace catalogs.api.Settings
 {
@@ -10,5 +7,11 @@ namespace catalogs.api.Settings
         public string CollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
+        public CatalogDatabaseSettings()
+        {
+            CollectionName = Environment.GetEnvironmentVariable("COLLECTIONNAME");
+            ConnectionString = Environment.GetEnvironmentVariable("CONNECTIONSTRING");
+            DatabaseName = Environment.GetEnvironmentVariable("DATABASENAME");
+        }
     }
 }

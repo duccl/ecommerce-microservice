@@ -38,9 +38,7 @@ namespace catalogs.api
             // Cadastrando nossa interface
             // Basicamente ele entende que toda classe que herdar a interface, deverá executar o seguinte comando
             // Como é um singleton, apenas a única instância executará o código
-            services.AddSingleton<ICatalogDatabaseSettings>(
-                serviceProvider => serviceProvider.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value
-            );
+            services.AddSingleton<ICatalogDatabaseSettings, CatalogDatabaseSettings>();
 
             services.AddTransient<ICatalogContext,CatalogContext>();
             services.AddTransient<IProductRepository, ProductRepository>();
