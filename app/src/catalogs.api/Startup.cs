@@ -28,12 +28,7 @@ namespace catalogs.api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "catalogs.api", Version = "v1" });
             });
-
-            // Injetando a classe Catalog
-            services.Configure<CatalogDatabaseSettings>(
-                Configuration.GetSection(nameof(CatalogDatabaseSettings))
-            );
-
+            
             // Cadastrando nossa interface
             // Basicamente ele entende que toda classe que herdar a interface, devera executar o seguinte comando
             // Como eh um singleton, apenas a unica instancia executara o codigo
