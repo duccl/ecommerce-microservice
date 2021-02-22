@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using catalogs.api.Settings;
 using catalogs.api.Data;
@@ -36,8 +35,8 @@ namespace catalogs.api
             );
 
             // Cadastrando nossa interface
-            // Basicamente ele entende que toda classe que herdar a interface, deverá executar o seguinte comando
-            // Como é um singleton, apenas a única instância executará o código
+            // Basicamente ele entende que toda classe que herdar a interface, devera executar o seguinte comando
+            // Como eh um singleton, apenas a unica instancia executara o codigo
             services.AddSingleton<ICatalogDatabaseSettings, CatalogDatabaseSettings>();
 
             services.AddTransient<ICatalogContext,CatalogContext>();
