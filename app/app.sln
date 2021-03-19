@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "catalog", "catalog", "{14A5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "catalogs.api", "src\catalogs.api\catalogs.api.csproj", "{88B1F38F-A591-4C8B-9339-9E9D03079C75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "payments.api", "src\payments.api\payments.api.csproj", "{648998C2-A256-44E5-B5E0-2BDAD5B0E365}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "basket.api", "src\basket.api\basket.api.csproj", "{FD506CB1-2087-4E39-A9C1-F04B27B5A61F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +28,10 @@ Global
 		{648998C2-A256-44E5-B5E0-2BDAD5B0E365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{648998C2-A256-44E5-B5E0-2BDAD5B0E365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{648998C2-A256-44E5-B5E0-2BDAD5B0E365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD506CB1-2087-4E39-A9C1-F04B27B5A61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD506CB1-2087-4E39-A9C1-F04B27B5A61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD506CB1-2087-4E39-A9C1-F04B27B5A61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD506CB1-2087-4E39-A9C1-F04B27B5A61F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +40,7 @@ Global
 		{14A51B32-A415-4A6B-A071-514005269B67} = {632DE6B8-FA05-43D1-BACF-13A505DABDBE}
 		{88B1F38F-A591-4C8B-9339-9E9D03079C75} = {14A51B32-A415-4A6B-A071-514005269B67}
 		{648998C2-A256-44E5-B5E0-2BDAD5B0E365} = {632DE6B8-FA05-43D1-BACF-13A505DABDBE}
+		{FD506CB1-2087-4E39-A9C1-F04B27B5A61F} = {632DE6B8-FA05-43D1-BACF-13A505DABDBE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7AF9F30-56E9-438D-8CC9-111C935001BB}
