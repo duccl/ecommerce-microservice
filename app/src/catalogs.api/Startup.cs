@@ -10,6 +10,7 @@ using catalogs.api.Data.Interfaces;
 using catalogs.api.Repositories.Interfaces;
 using catalogs.api.Repositories;
 using Microsoft.Extensions.Logging;
+using Settings.Database;
 
 namespace catalogs.api
 {
@@ -34,7 +35,7 @@ namespace catalogs.api
             // Cadastrando nossa interface
             // Basicamente ele entende que toda classe que herdar a interface, devera executar o seguinte comando
             // Como eh um singleton, apenas a unica instancia executara o codigo
-            services.AddSingleton<ICatalogDatabaseSettings, CatalogDatabaseSettings>();
+            services.AddDatabaseBinding<ICatalogDatabaseSettings, CatalogDatabaseSettings>(Configuration);
 
             services.AddTransient<ICatalogContext,CatalogContext>();
             services.AddTransient<IProductRepository, ProductRepository>();

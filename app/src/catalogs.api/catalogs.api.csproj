@@ -19,4 +19,8 @@
     <Folder Include="Entities\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\settings\Database\Database.csproj" />
+  </ItemGroup>
+
 </Project>
