@@ -9,9 +9,5 @@ services:
     build: ./src/catalogs.api
     depends_on:
       - catalogdb
-    environment:
-      - CONNECTIONSTRING=mongodb://catalogdb:27017
-      - DATABASENAME=catalogdb
-      - COLLECTIONNAME=products
     ports:
       - "8080:80" 
