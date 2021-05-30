@@ -36,8 +36,8 @@ namespace Microservices.Catalog.Api.Controllers
         public async Task<IActionResult> CreateProduct(Product product)
         {
             await _repository.Create(product);
-            if(product.Id == null) return BadRequest();
-            return CreatedAtRoute("GetProduct",new { id = product.Id }, product);
+            if (product.Id == null) return BadRequest();
+            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
         }
 
         [HttpPut]
@@ -74,18 +74,18 @@ namespace Microservices.Catalog.Api.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id}",Name = "product")]
+        [HttpGet("{id}", Name = "product")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<Product>> GetProduct(string id)
         {
             var product = await _repository.GetProduct(id);
-            if (product == null) 
+            if (product == null)
             {
                 _logger.LogWarning($"Product with id {id} not found");
                 return NotFound();
             }
             return Ok(product);
-        }        
+        }
     }
 }

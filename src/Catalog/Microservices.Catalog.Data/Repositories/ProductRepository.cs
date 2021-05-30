@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microservices.Catalog.Domain.Entities;
+﻿using Microservices.Catalog.Domain.Entities;
 using Microservices.Catalog.Domain.Interfaces.Contexts;
 using Microservices.Catalog.Domain.Interfaces.Repositories;
 using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 namespace Microservices.Catalog.Data
 {
     public class ProductRepository : IProductRepository
@@ -58,7 +58,7 @@ namespace Microservices.Catalog.Data
         {
             var operationResult = await _catalogContext
                                     .Products
-                                    .ReplaceOneAsync(filter: collectionProduct => collectionProduct.Id == product.Id, 
+                                    .ReplaceOneAsync(filter: collectionProduct => collectionProduct.Id == product.Id,
                                                      replacement: product);
             return operationResult.IsAcknowledged && operationResult.ModifiedCount > 0;
         }

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microservices.Catalog.Domain.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microservices.Catalog.Domain.Entities;
 
 namespace Microservices.Catalog.Domain.Interfaces.Repositories
 {

@@ -1,5 +1,5 @@
-﻿using MongoDB.Driver;
-using Microservices.Catalog.Domain.Entities;
+﻿using Microservices.Catalog.Domain.Entities;
+using MongoDB.Driver;
 
 namespace Microservices.Catalog.Domain.Interfaces.Contexts
 {
