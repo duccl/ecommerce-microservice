@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Microservices.Catalog.Api.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/catalog")]
     [ApiController]
     public class CatalogController : ControllerBase
     {
@@ -57,7 +57,7 @@ namespace Microservices.Catalog.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetProductByName")]
+        [Route("product-by-name")]
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByName(string name)
         {
@@ -66,7 +66,7 @@ namespace Microservices.Catalog.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetProductByCategory")]
+        [Route("product-by-category")]
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
         {
@@ -74,7 +74,7 @@ namespace Microservices.Catalog.Api.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id}",Name = "GetProduct")]
+        [HttpGet("{id}",Name = "product")]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<Product>> GetProduct(string id)

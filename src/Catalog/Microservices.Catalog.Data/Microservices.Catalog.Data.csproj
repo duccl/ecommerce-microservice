@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Microservices.Settings\Microservices.Settings.csproj" />
     <ProjectReference Include="..\Microservices.Catalog.Domain\Microservices.Catalog.Domain.csproj" />
   </ItemGroup>
 
