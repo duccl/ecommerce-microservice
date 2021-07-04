@@ -1,3 +1,7 @@
+using Microservices.Basket.Application.Services;
+using Microservices.Basket.Data.Repositories;
+using Microservices.Basket.Domain.Interfaces.Repositories;
+using Microservices.Basket.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,11 +22,16 @@ namespace Microservices.Basket.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBasketService, BasketService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Microservices.Basket.Api", Version = "v1" });
+            });
+            services.AddStackExchangeRedisCache(options =>
+            {
+                Configuration.GetSection(options.GetType().Name).Bind(options);
             });
         }
 
@@ -34,8 +43,6 @@ namespace Microservices.Basket.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Microservices.Basket.Api v1"));
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

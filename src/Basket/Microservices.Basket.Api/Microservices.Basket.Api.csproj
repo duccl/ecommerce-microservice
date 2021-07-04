@@ -17,4 +17,10 @@
 	<ItemGroup>
 		<Folder Include="Controllers\" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Microservices.Basket.Application\Microservices.Basket.Application.csproj" />
+	  <ProjectReference Include="..\Microservices.Basket.Data\Microservices.Basket.Data.csproj" />
+	  <ProjectReference Include="..\Microservices.Basket.Domain\Microservices.Basket.Domain.csproj" />
+	</ItemGroup>
 </Project>
