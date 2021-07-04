@@ -37,7 +37,7 @@ namespace Microservices.Catalog.Api.Controllers
         {
             await _repository.Create(product);
             if (product.Id == null) return BadRequest();
-            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+            return CreatedAtRoute("product", new { id = product.Id }, product);
         }
 
         [HttpPut]

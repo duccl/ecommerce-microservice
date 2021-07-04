@@ -1,0 +1,32 @@
+version: "3.0"
+services:
+  catalogdb:
+    image: mongo
+    restart: always
+    container_name: "catalog-mongo"
+    expose:
+      - 27017
+  catalog:
+    build:
+        dockerfile: ./src/Catalog/Microservices.Catalog.Api/Dockerfile
+        context: .
+    container_name: "catalog-app"
+    depends_on:
+      - catalogdb
+    ports:
+      - "8080:80" 
+  basketdb:
+    image: mongo
+    restart: always
+    container_name: "basket-mongo"
+    expose:
+      - 27017
+  basket:
+    build: 
+        dockerfile: ./src/Basket/Microservices.Basket.Api/Dockerfile
+        context: .
+    container_name: "basket-app"
+    depends_on:
+      - basketdb
+    ports:
+      - "9090:80" 
