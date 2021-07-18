@@ -8,11 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Controllers\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Microservices.Basket.Application\Microservices.Basket.Application.csproj" />
+	  <ProjectReference Include="..\Microservices.Basket.Data\Microservices.Basket.Data.csproj" />
+	  <ProjectReference Include="..\Microservices.Basket.Domain\Microservices.Basket.Domain.csproj" />
 	</ItemGroup>
 </Project>
