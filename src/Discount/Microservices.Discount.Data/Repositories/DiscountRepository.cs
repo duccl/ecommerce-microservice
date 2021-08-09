@@ -26,11 +26,11 @@ namespace Microservices.Discount.Data.Repositories
 
         #region .: Methods :.
 
-        private async Task SetupDb()
+        private void SetupDb()
         {
             using var connection = _context.GetConnection();
-            await connection.ExecuteAsync(
-                "CREATE TABLE TB_VOUCHER" +
+            connection.Execute(
+                "CREATE TABLE IF NOT EXISTS TB_VOUCHER" +
                 "( ID SERIAL PRIMARY KEY, PRODUCT_NAME VARCHAR(24) NOT NULL UNIQUE, DESCRIPTION TEXT, AMOUNT DECIMAL NOT NULL CHECK (AMOUNT > 0)  )"
             );
         }
