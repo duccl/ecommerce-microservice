@@ -16,11 +16,11 @@ services:
     ports:
       - "8080:80" 
   basketdb:
-    image: mongo
+    image: redis
     restart: always
-    container_name: "basket-mongo"
+    container_name: "basket-redis"
     expose:
-      - 27017
+      - 6379
   basket:
     build: 
         dockerfile: ./src/Basket/Microservices.Basket.Api/Dockerfile
