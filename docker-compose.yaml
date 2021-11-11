@@ -30,3 +30,22 @@ services:
       - basketdb
     ports:
       - "9090:80" 
+  discountdb:
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: superpassword
+
+  discount:
+    build: 
+        dockerfile: ./src/Discount/Microservices.Discount.Api/Dockerfile
+        context: .
+    container_name: "discount-app"
+    depends_on:
+      - discountdb
+    ports:
+      - "9091:80" 
+
+volumes:
+  postgres_data:
