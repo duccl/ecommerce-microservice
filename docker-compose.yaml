@@ -30,6 +30,7 @@ services:
       - basketdb
     ports:
       - "9090:80" 
+
   discountdb:
     image: postgres
     restart: always
@@ -46,6 +47,18 @@ services:
       - discountdb
     ports:
       - "9091:80" 
+
+  discount-grpc:
+    build: 
+        dockerfile: ./src/Discount/Microservices.Discount.Grpc/Dockerfile
+        context: .
+    container_name: "discount-app-grpc"
+    depends_on:
+      - discountdb
+    expose:
+      - 80
+    ports:
+      - "9093:80" 
 
 volumes:
   postgres_data:

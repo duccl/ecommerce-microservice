@@ -2,6 +2,8 @@
 using Microservices.Discount.Domain.Entities;
 using Microservices.Discount.Domain.Interfaces.Contexts;
 using Microservices.Discount.Domain.Interfaces.Repositories;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace Microservices.Discount.Data.Repositories
@@ -11,14 +13,16 @@ namespace Microservices.Discount.Data.Repositories
         #region .: Properties :.
 
         public readonly IContext _context;
+        public readonly ILogger<DiscountRepository> _logger;
 
         #endregion
 
         #region .: Constructor :.
 
-        public DiscountRepository(IContext context)
+        public DiscountRepository(IContext context, ILogger<DiscountRepository> logger)
         {
             _context = context;
+            _logger = logger;
             SetupDb();
         }
 
@@ -43,14 +47,22 @@ namespace Microservices.Discount.Data.Repositories
         {
             using var connection = _context.GetConnection();
 
-            var affectedRows = await connection.ExecuteAsync(
-                "INSERT INTO TB_VOUCHER (PRODUCT_NAME, DESCRIPTION,AMOUNT) VALUES (@ProductName, @Description, @Amount)", 
-                new { ProductName = voucher.ProductName, Description= voucher.Description, Amount= voucher.Amount }
-            );
+            try
+            {
+                var affectedRows = await connection.ExecuteAsync(
+                    "INSERT INTO TB_VOUCHER (PRODUCT_NAME, DESCRIPTION,AMOUNT) VALUES (@ProductName, @Description, @Amount)",
+                    new { ProductName = voucher.ProductName, Description = voucher.Description, Amount = voucher.Amount }
+                );
 
-            if (affectedRows == 0)
+                if (affectedRows == 0)
+                    return false;
+                return true;
+            }
+            catch(Exception err)
+            {
+                _logger.LogError(err, $"Error creating voucher {voucher?.Id} - {voucher?.ProductName}");
                 return false;
-            return true;
+            }
         }
 
         public async Task<bool> DeleteVoucher(string productName)
@@ -72,7 +84,7 @@ namespace Microservices.Discount.Data.Repositories
             using var connection = _context.GetConnection();
 
             var voucher = await connection.QueryFirstOrDefaultAsync<Voucher>(
-                "SELECT ID, DESCRIPTION, AMOUNT, PRODUCT_NAME AS ProductName FROM TB_VOUCHER WHERE PRODUCT_NAME= @ProductName", new { ProductName = productName}
+                "SELECT ID, DESCRIPTION, AMOUNT, PRODUCT_NAME AS ProductName FROM TB_VOUCHER WHERE PRODUCT_NAME= @ProductName", new { ProductName = productName }
             );
 
             if (voucher == null)

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option csharp_namespace = "Microservices.Discount.Grpc.Protos";
+
+service DiscountProtoService {
+	rpc GetDiscount(GetDiscountRequest) returns (VoucherContract);
+	rpc CreateDiscount(CreateDiscountRequest) returns (CreateDiscountResponse);
+	rpc UpdateDiscount(UpdateDiscountRequest) returns (UpdateDiscountResponse);
+	rpc DeleteDiscount(DeleteDiscountRequest) returns (DeleteVoucherResponse);
+}
+
+message GetDiscountRequest {
+	string productName = 1;
+}
+
+message VoucherContract{
+	int32 id = 1;
+	string productName = 2;
+	string description = 3;
+	float amount = 4;
+}
+
+message CreateDiscountRequest{
+	VoucherContract voucherToCreate = 1;
+}
+
+message UpdateDiscountRequest{
+	VoucherContract voucherToUpdate = 1;
+}
+
+message DeleteDiscountRequest{
+	string productName = 1;
+}
+
+message CreateDiscountResponse{
+	bool success = 1;
+}
+
+message DeleteVoucherResponse{
+	bool success = 1;
+}
+
+message UpdateDiscountResponse{
+	bool success = 1;
+}

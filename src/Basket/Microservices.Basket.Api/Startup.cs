@@ -2,12 +2,14 @@ using Microservices.Basket.Application.Services;
 using Microservices.Basket.Data.Repositories;
 using Microservices.Basket.Domain.Interfaces.Repositories;
 using Microservices.Basket.Domain.Interfaces.Services;
+using Microservices.Discount.Grpc.Protos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace Microservices.Basket.Api
 {
@@ -22,6 +24,9 @@ namespace Microservices.Basket.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
+                options => options.Address = new Uri(Configuration.GetValue<string>("GrpcSettings:DiscountUrl"))
+             );
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddControllers();
@@ -43,7 +48,7 @@ namespace Microservices.Basket.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Microservices.Basket.Api v1"));
             }
-
+            
             app.UseRouting();
 
             app.UseAuthorization();
