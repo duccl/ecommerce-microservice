@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Discount\Microservices.Discount.Grpc\Microservices.Discount.Grpc.csproj" />
     <ProjectReference Include="..\Microservices.Basket.Domain\Microservices.Basket.Domain.csproj" />
   </ItemGroup>
 

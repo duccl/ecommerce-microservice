@@ -23,4 +23,10 @@
 	  <ProjectReference Include="..\Microservices.Basket.Data\Microservices.Basket.Data.csproj" />
 	  <ProjectReference Include="..\Microservices.Basket.Domain\Microservices.Basket.Domain.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
 </Project>
