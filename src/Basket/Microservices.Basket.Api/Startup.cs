@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Microservices.Basket.Api
 {
@@ -48,7 +50,7 @@ namespace Microservices.Basket.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Microservices.Basket.Api v1"));
             }
-            
+
             app.UseRouting();
 
             app.UseAuthorization();

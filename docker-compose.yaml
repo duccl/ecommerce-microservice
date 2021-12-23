@@ -59,6 +59,26 @@ services:
       - 80
     ports:
       - "9093:80" 
-
+  orderdb:
+    image: mcr.microsoft.com/mssql/server
+    restart: always
+    container_name: "order-database"
+    environment: 
+      ACCEPT_EULA: Y
+      SA_PASSWORD: adminA#15
+    expose:
+      - 1433
+    ports:
+      - "1433:1433"
+  order:
+    build:
+        dockerfile: ./src/Ordering/Microservices.Ordering.Api/Dockerfile
+        context: .
+    container_name: "order-app"
+    restart: always
+    depends_on:
+      - orderdb
+    ports:
+      - "9095:80" 
 volumes:
   postgres_data:
