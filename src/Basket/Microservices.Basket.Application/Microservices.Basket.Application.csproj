@@ -1,10 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="MassTransit" Version="7.3.1-develop.334" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\Microservices.EventBus.Messages\Microservices.EventBus.Messages.csproj" />
     <ProjectReference Include="..\..\Discount\Microservices.Discount.Grpc\Microservices.Discount.Grpc.csproj" />
     <ProjectReference Include="..\Microservices.Basket.Domain\Microservices.Basket.Domain.csproj" />
   </ItemGroup>

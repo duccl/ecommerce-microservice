@@ -32,12 +32,25 @@ namespace Microservices.Basket.Api.Controllers
             return Ok(await _basketService.UpdateBasketAsync(basket));
         }
 
-        [HttpDelete]
+        [HttpDelete("{userName}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteBasketAsync(string userName)
         {
             await _basketService.DeleteBasketAsync(userName);
             return Ok();
+        }
+
+        [HttpPost("checkout")]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
+        {
+            var checkoutSuccessfull = await _basketService.Checkout(basketCheckout);
+
+            if (checkoutSuccessfull)
+                return Ok();
+
+            return BadRequest();
         }
     }
 }

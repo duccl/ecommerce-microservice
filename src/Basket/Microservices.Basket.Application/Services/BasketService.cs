@@ -1,9 +1,11 @@
-﻿using Microservices.Basket.Domain.Entities;
+﻿using AutoMapper;
+using Microservices.Basket.Domain.Entities;
 using Microservices.Basket.Domain.Interfaces.Repositories;
 using Microservices.Basket.Domain.Interfaces.Services;
 using Microservices.Discount.Grpc.Protos;
-using System.Linq;
 using System.Threading.Tasks;
+using Microservices.EventBus.Messages;
+using MassTransit;
 
 namespace Microservices.Basket.Application.Services
 {
@@ -13,17 +15,22 @@ namespace Microservices.Basket.Application.Services
 
         private readonly IBasketRepository _basketRepository;
         private readonly DiscountProtoService.DiscountProtoServiceClient _discountClient;
+        private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         #endregion
 
         #region .: Constructor :.
 
-        public BasketService(
-                IBasketRepository basketRepository, 
-                DiscountProtoService.DiscountProtoServiceClient discountClient)
+        public BasketService(IBasketRepository basketRepository,
+                             DiscountProtoService.DiscountProtoServiceClient discountClient,
+                             IMapper mapper,
+                             IPublishEndpoint publishEndpoint)
         {
             _basketRepository = basketRepository;
             _discountClient = discountClient;
+            _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
 
         #endregion
@@ -49,6 +56,22 @@ namespace Microservices.Basket.Application.Services
                 item.Price -= decimal.Parse(discount.Amount.ToString());
             }
             return await _basketRepository.UpdateBasketAsync(basket);
+        }
+
+        public async Task<bool> Checkout(BasketCheckout basketCheckout)
+        {
+            var basket = await GetBasketAsync(basketCheckout.UserName);
+
+            if (basket == default)
+                return false;
+
+            var basketCheckoutEvent = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
+            basketCheckoutEvent.TotalPrice = basket.TotalPrice;
+
+            await _publishEndpoint.Publish(basketCheckoutEvent);
+
+            await DeleteBasketAsync(basketCheckout.UserName);
+            return true;
         }
 
         #endregion
