@@ -1,5 +1,12 @@
 version: "3.0"
 services:
+  rabbitmq_broker:
+    image: rabbitmq:3-management-alpine
+    container_name: "rabbitmq-broker"
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
   catalogdb:
     image: mongo
     restart: always
@@ -28,6 +35,7 @@ services:
     container_name: "basket-app"
     depends_on:
       - basketdb
+      - rabbitmq_broker
     ports:
       - "9090:80" 
 
@@ -70,7 +78,7 @@ services:
       - 1433
     ports:
       - "1433:1433"
-  order:
+  orderapp:
     build:
         dockerfile: ./src/Ordering/Microservices.Ordering.Api/Dockerfile
         context: .
@@ -80,5 +88,14 @@ services:
       - orderdb
     ports:
       - "9095:80" 
+  order_consumers:
+    build:
+        dockerfile: ./src/Ordering/Microservices.Ordering.Consumer/Dockerfile
+        context: .
+    container_name: "order-consumers"
+    restart: always
+    depends_on:
+      - orderdb
+      - rabbitmq_broker
 volumes:
   postgres_data:

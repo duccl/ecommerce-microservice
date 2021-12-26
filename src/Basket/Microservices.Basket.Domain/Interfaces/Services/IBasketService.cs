@@ -8,5 +8,6 @@ namespace Microservices.Basket.Domain.Interfaces.Services
         Task<ShoppingCart> GetBasketAsync(string userName);
         Task<ShoppingCart> UpdateBasketAsync(ShoppingCart basket);
         Task DeleteBasketAsync(string userName);
+        Task<bool> Checkout(BasketCheckout basketCheckout);
     }
 }

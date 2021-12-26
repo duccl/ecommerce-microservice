@@ -1,14 +1,15 @@
-﻿namespace Microservices.Ordering.Application.Features.Orders.Queries.GetOrdersList
+﻿using Microservices.EventBus.Messages.Events.Base;
+
+namespace Microservices.EventBus.Messages
 {
-    public class OrderVm
+    public class BasketCheckoutEvent: IntegrationBaseEvent
     {
-        public int Id { get; set; }
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
-        public AddressVm Address { get; set; }
-        public PaymentVm Payment { get; set; }
+        public Address Address { get; set; }
+        public Payment Payment { get; set; }
     }
-    public class AddressVm
+    public class Address
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,7 +19,7 @@
         public string State { get; set; }
         public string ZipCode { get; set; }
     }
-    public class PaymentVm
+    public class Payment
     {
         public string CardName { get; set; }
         public string CardNumber { get; set; }

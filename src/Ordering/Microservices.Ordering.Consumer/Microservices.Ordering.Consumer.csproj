@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Microservices.Ordering.Consumer-32D95A04-E7F9-4E67-AC06-CDEA91954A3C</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="MassTransit" Version="7.3.1-develop.334" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1-develop.334" />
+    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1-develop.334" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.3.1-develop.334" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\Microservices.EventBus.Messages\Microservices.EventBus.Messages.csproj" />
+    <ProjectReference Include="..\Microservices.Ordering.Application\Microservices.Ordering.Application.csproj" />
+    <ProjectReference Include="..\Microservices.Ordering.Infraestructure\Microservices.Ordering.Infraestructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.Production.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
