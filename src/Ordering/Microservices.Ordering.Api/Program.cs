@@ -1,12 +1,13 @@
+using Hellang.Middleware.ProblemDetails;
 using Microservices.Ordering.Api.Extensions;
 using Microservices.Ordering.Application;
-using Microservices.Ordering.Domain.Entities;
 using Microservices.Ordering.Infraestructure;
 using Microservices.Ordering.Infraestructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {

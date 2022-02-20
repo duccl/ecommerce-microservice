@@ -1,5 +1,13 @@
 version: "3.0"
 services:
+  gateway:
+    build:
+        dockerfile: ./src/ApiGatways/OcelotApiGatway/Dockerfile
+        context: .
+    container_name: "ocelot-api-gateway"
+    restart: always
+    ports:
+      - "80:80" 
   rabbitmq_broker:
     image: rabbitmq:3-management-alpine
     container_name: "rabbitmq-broker"
@@ -20,8 +28,10 @@ services:
     container_name: "catalog-app"
     depends_on:
       - catalogdb
-    ports:
-      - "8080:80" 
+    expose:
+      - 80
+    # ports:
+    #   - "8080:80" 
   basketdb:
     image: redis
     restart: always
@@ -36,8 +46,10 @@ services:
     depends_on:
       - basketdb
       - rabbitmq_broker
-    ports:
-      - "9090:80" 
+    expose:
+      - 80
+    # ports:
+    #   - "9090:80" 
 
   discountdb:
     image: postgres
@@ -53,8 +65,10 @@ services:
     container_name: "discount-app"
     depends_on:
       - discountdb
-    ports:
-      - "9091:80" 
+    expose:
+      - 80
+    # ports:
+    #   - "9091:80" 
 
   discount-grpc:
     build: 
@@ -65,8 +79,9 @@ services:
       - discountdb
     expose:
       - 80
-    ports:
-      - "9093:80" 
+    # ports:
+    #   - "9093:80" 
+
   orderdb:
     image: mcr.microsoft.com/mssql/server
     restart: always
@@ -86,8 +101,11 @@ services:
     restart: always
     depends_on:
       - orderdb
+    expose:
+      - 80
     ports:
       - "9095:80" 
+    
   order_consumers:
     build:
         dockerfile: ./src/Ordering/Microservices.Ordering.Consumer/Dockerfile

@@ -18,7 +18,7 @@ namespace Microservices.Basket.Api.Controllers
             _basketService = basketService;
         }
 
-        [HttpGet]
+        [HttpGet("{userName}")]
         [ProducesResponseType((int)HttpStatusCode.OK,Type= typeof(ShoppingCart))]
         public async Task<IActionResult> GetBasketAsync(string userName)
         {
