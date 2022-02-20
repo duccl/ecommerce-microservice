@@ -48,7 +48,7 @@ namespace Microservices.Catalog.Api.Controllers
             return Ok(update_result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<bool>> DeleteProduct(string id)
         {
