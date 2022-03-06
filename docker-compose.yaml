@@ -8,6 +8,16 @@ services:
     restart: always
     ports:
       - "80:80" 
+
+  shopping_aggregator:
+    build:
+        dockerfile: ./src/ApiGatways/Shopping.Aggregator/Dockerfile
+        context: .
+    container_name: "shopping-aggregator"
+    restart: always
+    ports:
+      - "9069:80" 
+
   rabbitmq_broker:
     image: rabbitmq:3-management-alpine
     container_name: "rabbitmq-broker"
@@ -30,8 +40,8 @@ services:
       - catalogdb
     expose:
       - 80
-    # ports:
-    #   - "8080:80" 
+    ports:
+      - "8080:80" 
   basketdb:
     image: redis
     restart: always
@@ -48,8 +58,8 @@ services:
       - rabbitmq_broker
     expose:
       - 80
-    # ports:
-    #   - "9090:80" 
+    ports:
+      - "9090:80" 
 
   discountdb:
     image: postgres
@@ -67,8 +77,8 @@ services:
       - discountdb
     expose:
       - 80
-    # ports:
-    #   - "9091:80" 
+    ports:
+      - "9091:80" 
 
   discount-grpc:
     build: 
@@ -79,8 +89,8 @@ services:
       - discountdb
     expose:
       - 80
-    # ports:
-    #   - "9093:80" 
+    ports:
+      - "9093:80" 
 
   orderdb:
     image: mcr.microsoft.com/mssql/server
