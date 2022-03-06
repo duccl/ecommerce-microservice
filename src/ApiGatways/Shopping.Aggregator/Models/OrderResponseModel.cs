@@ -2,13 +2,10 @@
 {
     public class OrderResponseModel
     {
-        public class Order
-        {
-            public string UserName { get; set; }
-            public decimal TotalPrice { get; set; }
-            public AddressModel Address { get; set; }
-            public PaymentModel Payment { get; set; }
-        }
+        public string UserName { get; set; }
+        public decimal TotalPrice { get; set; }
+        public AddressModel Address { get; set; }
+        public PaymentModel Payment { get; set; }
     }
 
     public class AddressModel

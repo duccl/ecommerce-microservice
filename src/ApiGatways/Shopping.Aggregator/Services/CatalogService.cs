@@ -12,19 +12,11 @@ namespace Shopping.Aggregator.Services
             _httpClient = httpClient;
         }
 
-        public Task<IEnumerable<CatalogModel>> GetCatalog()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<CatalogModel>> GetCatalog() => await _httpClient.GetFromJsonAsync<IEnumerable<CatalogModel>>("/api/catalog");
 
-        public Task<CatalogModel> GetCatalog(string id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<CatalogModel> GetCatalog(string id) => await _httpClient.GetFromJsonAsync<CatalogModel>($"/api/catalog/{id}");
 
-        public Task<IEnumerable<CatalogModel>> GetCatalogByCategory(string category)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<CatalogModel>> GetCatalogByCategory(string category) =>
+            await _httpClient.GetFromJsonAsync<IEnumerable<CatalogModel>>($"/api/catalog/product-by-category/{category}");
     }
 }

@@ -6,15 +6,12 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["ApiGatways/Shopping.Aggregator/Shopping.Aggregator/Shopping.Aggregator.csproj", "ApiGatways/Shopping.Aggregator/Shopping.Aggregator/"]
-RUN dotnet restore "ApiGatways/Shopping.Aggregator/Shopping.Aggregator/Shopping.Aggregator.csproj"
-COPY . .
-WORKDIR "/src/ApiGatways/Shopping.Aggregator/Shopping.Aggregator"
-RUN dotnet build "Shopping.Aggregator.csproj" -c Release -o /app/build
+COPY ["src/ApiGatways/Shopping.Aggregator/", "ApiGatways/Shopping.Aggregator/"]
+RUN dotnet restore "ApiGatways/Shopping.Aggregator/Shopping.Aggregator.csproj"
+RUN dotnet build "ApiGatways/Shopping.Aggregator/Shopping.Aggregator.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Shopping.Aggregator.csproj" -c Release -o /app/publish
+RUN dotnet publish "ApiGatways/Shopping.Aggregator/Shopping.Aggregator.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

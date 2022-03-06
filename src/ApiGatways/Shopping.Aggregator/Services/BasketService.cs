@@ -11,9 +11,6 @@ namespace Shopping.Aggregator.Services
             _httpClient = httpClient;
         }
 
-        public Task<BasketModel> GetBasket(string userName)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<BasketModel> GetBasket(string userName) => await _httpClient.GetFromJsonAsync<BasketModel>($"api/basket/{userName}");
     }
 }

@@ -12,16 +12,22 @@ builder.Services.AddHttpClient<ICatalogService, CatalogService>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiSettings:CatalogUrl"]);
 });
+builder.Services.AddHttpClient<IBasketService, BasketService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BasketUrl"]);
+});
+builder.Services.AddHttpClient<IOrderService, OrderService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiSettings:OrderingUrl"]);
+});
+builder.Services.AddScoped<IShoppingService, ShoppingService>();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+    
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
