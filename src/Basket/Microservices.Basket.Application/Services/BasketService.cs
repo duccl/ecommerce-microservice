@@ -6,6 +6,7 @@ using Microservices.Discount.Grpc.Protos;
 using System.Threading.Tasks;
 using Microservices.EventBus.Messages;
 using MassTransit;
+using Microsoft.Extensions.Logging;
 
 namespace Microservices.Basket.Application.Services
 {
@@ -17,6 +18,7 @@ namespace Microservices.Basket.Application.Services
         private readonly DiscountProtoService.DiscountProtoServiceClient _discountClient;
         private readonly IMapper _mapper;
         private readonly IPublishEndpoint _publishEndpoint;
+        private readonly ILogger<BasketService> _logger;
 
         #endregion
 
@@ -25,12 +27,14 @@ namespace Microservices.Basket.Application.Services
         public BasketService(IBasketRepository basketRepository,
                              DiscountProtoService.DiscountProtoServiceClient discountClient,
                              IMapper mapper,
-                             IPublishEndpoint publishEndpoint)
+                             IPublishEndpoint publishEndpoint,
+                             ILogger<BasketService> logger)
         {
             _basketRepository = basketRepository;
             _discountClient = discountClient;
             _mapper = mapper;
             _publishEndpoint = publishEndpoint;
+            _logger = logger;
         }
 
         #endregion
@@ -67,6 +71,7 @@ namespace Microservices.Basket.Application.Services
 
             var basketCheckoutEvent = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
             basketCheckoutEvent.TotalPrice = basket.TotalPrice;
+            _logger.LogInformation("Checking out basket for client {Client} with totalPrice {TotalPrice}", basketCheckout.UserName,  basketCheckout.TotalPrice);
 
             await _publishEndpoint.Publish(basketCheckoutEvent);
 
