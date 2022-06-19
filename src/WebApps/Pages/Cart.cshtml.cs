@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using AspnetRunBasics.Entities;
-using AspnetRunBasics.Repositories;
+using AspnetRunBasics.Models;
+using AspnetRunBasics.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,25 +10,33 @@ namespace AspnetRunBasics
 {
     public class CartModel : PageModel
     {
-        private readonly ICartRepository _cartRepository;
+        private readonly IBasketService _basketService;
 
-        public CartModel(ICartRepository cartRepository)
+        public CartModel(IBasketService basketService)
         {
-            _cartRepository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));
+            _basketService = basketService;
         }
 
-        public Entities.Cart Cart { get; set; } = new Entities.Cart();        
+
+        public BasketModel Cart { get; set; } = new BasketModel();        
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Cart = await _cartRepository.GetCartByUserName("test");            
-
+            Cart = await _basketService.GetBasket("duccl");
             return Page();
         }
 
-        public async Task<IActionResult> OnPostRemoveToCartAsync(int cartId, int cartItemId)
+        public async Task<IActionResult> OnPostRemoveToCartAsync(string productId)
         {
-            await _cartRepository.RemoveItem(cartId, cartItemId);
+            var cart = await _basketService.GetBasket("duccl");
+
+            if (cart.Items == default)
+                return RedirectToPage();
+
+            cart.Items = cart.Items.Where(product => product.ProductId != productId).ToList();
+
+            var newBasket = await _basketService.UpdateBasket(cart);
+
             return RedirectToPage();
         }
     }

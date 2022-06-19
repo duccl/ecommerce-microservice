@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AspnetRunBasics.Repositories;
+using AspnetRunBasics.Models;
+using AspnetRunBasics.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,18 +9,18 @@ namespace AspnetRunBasics
 {
     public class OrderModel : PageModel
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderService _orderService;
 
-        public OrderModel(IOrderRepository orderRepository)
+        public OrderModel(IOrderService orderService)
         {
-            _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
+            _orderService = orderService;
         }
 
-        public IEnumerable<Entities.Order> Orders { get; set; } = new List<Entities.Order>();
+        public IEnumerable<BasketCheckoutModel> Orders { get; set; } = new List<BasketCheckoutModel>();
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Orders = await _orderRepository.GetOrdersByUserName("test");
+            Orders = await _orderService.GetOrdersByUserName("duccl");
 
             return Page();
         }       
