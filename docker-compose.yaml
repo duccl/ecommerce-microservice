@@ -125,5 +125,15 @@ services:
     depends_on:
       - orderdb
       - rabbitmq_broker
+
+  shopping_webapp:
+    build:
+        dockerfile: ./src/WebApps/Dockerfile
+        context: .
+    container_name: "shopping-web-app"
+    restart: always
+    ports:
+      - "5085:80" 
+
 volumes:
   postgres_data:
